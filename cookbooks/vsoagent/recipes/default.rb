@@ -37,34 +37,34 @@ execute "/usr/bin/npm install vsoagent-installer -g" do
   user "root"
 end
 
-directory "/home/ubuntu/myagent" do
-  owner 'ubuntu'
-  group 'ubuntu'
+directory "/home/#{node["vsoagent"]["vm_user"]}/myagent" do
+  owner node["vsoagent"]["vm_user"]
+  group node["vsoagent"]["vm_group"]
   mode '0755'
   action :create
 end
 
 execute "/usr/bin/vsoagent-installer" do
-  cwd "/home/ubuntu/myagent"
-  user "ubuntu"
-  group "ubuntu"
-  not_if {File.exist?("/home/ubuntu/myagent/agent")}
+  cwd "/home/#{node["vsoagent"]["vm_user"]}/myagent"
+  user node["vsoagent"]["vm_user"]
+  group ["vsoagent"]["vm_group"]
+  not_if {File.exist?("/home/#{node["vsoagent"]["vm_user"]}/myagent/agent")}
 end
 
-template "/home/ubuntu/.bash_profile" do
+template "/home/#{node["vsoagent"]["vm_user"]}/.bash_profile" do
   mode '0664'
   source '.bash_profile.erb'
-  user "ubuntu"
-  group "ubuntu"
-  not_if { File.exist?("/home/ubuntu/.bash_profile")}
+  user node["vsoagent"]["vm_user"]
+  group node["vsoagent"]["vm_group"]
+  not_if { File.exist?("/home/#{node["vsoagent"]["vm_user"]}/.bash_profile")}
 end
 
-template "/home/ubuntu/myagent/.agent" do
+template "/home/#{node["vsoagent"]["vm_user"]}/myagent/.agent" do
   mode '0664'
   source '.agent.erb'
-  user "ubuntu"
-  group "ubuntu"
-  not_if { File.exists?("/home/ubuntu/myagent/.agent")}
+  user node["vsoagent"]["vm_user"]
+  group node["vsoagent"]["vm_group"]
+  not_if { File.exists?("/home/#{node["vsoagent"]["vm_user"]}/myagent/.agent")}
 end
 
 
