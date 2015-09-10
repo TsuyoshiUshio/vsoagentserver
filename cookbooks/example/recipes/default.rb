@@ -47,6 +47,7 @@ end
 execute "/usr/bin/vsoagent-installer" do
   cwd "/home/ubuntu/myagent"
   user "ubuntu"
+  group "ubuntu"
   not_if {File.exist?("/home/ubuntu/myagent/agent")}
 end
 
