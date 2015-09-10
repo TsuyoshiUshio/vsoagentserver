@@ -60,7 +60,8 @@ Deploy and Provision
 Login the server.
 
 ```
-> ssh azureuser@@pendricachefdemo01.cloudapp.net
+> ssh azureuser@pendricachefdemo01.cloudapp.net
+password : < See provisioning.rb >
 $ cd myagent
 $ node agent/vsoagent
 ```
