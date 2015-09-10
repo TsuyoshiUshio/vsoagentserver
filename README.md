@@ -1,28 +1,74 @@
-Overview
-========
+Visual Studio Online Build Agent Machine for Ubuntu
+===================================================
 
-Every Chef installation needs a Chef Repository. This is the place where cookbooks, roles, config files and other artifacts for managing systems with Chef will live. We strongly recommend storing this repository in a version control system such as Git and treat it like source code.
+Creating Visual Studio Online build agent machine for Ubuntu. Using chef-provision, you can create vm instance and provision it on Azure environment.
+This cookbook automate to create a PartsUnlimitedMRP's build server for you.
 
-While we prefer Git, and make this repository available via GitHub, you are welcome to download a tar or zip archive and use your favorite version control system to manage the code.
+Prerequisites
+-------------
 
-Repository Directories
-======================
+* Azure Subscription
+* Azure CLI
+* Windows 10 (However, Mac will be almost the same except for Chocolately)
+* git
 
-This repository contains several directories, and each directory contains a README file that describes what it is for in greater detail, and how to use it for managing your systems with Chef.
+You need to make sure to use Azure CLI with Subscription.
 
-* `cookbooks/` - Cookbooks you download or create.
-* `data_bags/` - Store data bags and items in .json in the repository.
-* `roles/` - Store roles in .rb or .json in the repository.
-* `environments/` - Store environments in .rb or .json in the repository.
+Installation
+------------
 
-Configuration
-=============
+### 1. Install ChefDK
 
-The config file, `.chef/knife.rb` is a repository specific configuration file for knife. If you're using the Chef Platform, you can download one for your organization from the management console. If you're using the Open Source Chef Server, you can generate a new one with `knife configure`. For more information about configuring Knife, see the Knife documentation.
+I use [Chocolatey](https://chocolatey.org/) for deploy something.
+To install chocolatey, just type this command.
 
-http://docs.chef.io/knife.html
+```
+ @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+```
+Then you can install ChefDK
 
-Next Steps
-==========
+```
+> choco install chefdk -y
+> SETX /M PATH "%PATH%;c:\opscode\chefdk\bin"
+> SETX /M PATH "%PATH%;c:\opscode\chefdk\embedded\bin"
+> SET PATH=%PATH%;c:\opscode\chefdk\bin;c:\opscode\chefdk\embedded\bin"
+```
 
-Read the README file in each of the subdirectories for more information about what goes in those directories.
+```
+>chef --version
+Chef Development Kit Version: 0.7.0
+chef-client version: 12.4.1
+berks version: 3.2.4
+kitchen version: 1.4.2
+```
+
+### 2. Install Chef Provisioning Azure
+
+```
+> gem install chef-provisioning-azure
+```
+
+Deploy and Provision
+--------------------
+
+```
+> git clone https://github.com/TsuyoshiUshio/vsoagentserver.git
+> cd vsoagentserver
+> chef-client --local provisioning.rb
+```
+
+Login the server.
+
+```
+> ssh azureuser@@pendricachefdemo01.cloudapp.net
+$ cd myagent
+$ node agent/vsoagent
+```
+
+
+Customize
+---------
+
+You can change the VM related variables on `provisioning.rb` and VSO configuration related
+settings on `cookbooks/vsoagent/attributes/default.rb`
+

@@ -5,7 +5,7 @@
 default["vsoagent"]["pool_name"] = "demo01pool"
 default["vsoagent"]["server_url"] = "https://devopsjapan.visualstudio.com"
 default["vsoagent"]["agent_name"] = "demo01agent"
-default["vsoagent"]["vm_user"] = "ubuntu"
-default["vsoagent"]["vm_group"] = "ubuntu"
+default["vsoagent"]["vm_user"] = "azureuser"
+default["vsoagent"]["vm_group"] = "azureuser"
 
 # For further information, see the Chef documentation (http://docs.getchef.com/essentials_cookbook_attribute_files.html).

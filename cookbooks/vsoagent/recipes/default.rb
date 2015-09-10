@@ -47,7 +47,7 @@ end
 execute "/usr/bin/vsoagent-installer" do
   cwd "/home/#{node["vsoagent"]["vm_user"]}/myagent"
   user node["vsoagent"]["vm_user"]
-  group ["vsoagent"]["vm_group"]
+  group node["vsoagent"]["vm_group"]
   not_if {File.exist?("/home/#{node["vsoagent"]["vm_user"]}/myagent/agent")}
 end
 
