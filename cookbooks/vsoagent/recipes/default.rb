@@ -54,8 +54,19 @@ end
 template "/home/ubuntu/.bash_profile" do
   mode '0664'
   source '.bash_profile.erb'
+  user "ubuntu"
+  group "ubuntu"
   not_if { File.exist?("/home/ubuntu/.bash_profile")}
 end
+
+template "/home/ubuntu/myagent/.agent" do
+  mode '0664'
+  source '.agent.erb'
+  user "ubuntu"
+  group "ubuntu"
+  not_if { File.exists?("/home/ubuntu/myagent/.agent")}
+end
+
 
 
 

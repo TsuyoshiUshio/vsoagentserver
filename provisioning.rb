@@ -14,6 +14,6 @@ machine_options = {
   }
   machine 'penchefdemo01' do
     machine_options machine_options
-    recipe 'example'
+    recipe 'vsoagent'
     converge true
   end
