@@ -40,16 +40,8 @@ end
 
 
 package "npm" do
-  def exist_command?(command)
-    begin
-      Open3.capture3("type #{command}")[2].exited?
-    rescue
-      false
-    end
-  end
-
   action :install
-  not_if {exist_command?("npm")}
+  not_if {File.exist?("/usr/bin/npm")}
 end
 
 execute "update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10" do
