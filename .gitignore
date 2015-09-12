@@ -8,3 +8,4 @@
 .idea
 nodes
 clients
+cookbooks/vsoagent/.kitchen

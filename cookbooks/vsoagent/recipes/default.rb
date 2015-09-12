@@ -1,6 +1,10 @@
 # This is a Chef recipe file. It can be used to specify resources which will
 # apply configuration to a server.
 
+package "software-properties-common" do
+  action :install
+end
+
 execute "add-apt-repository ppa:openjdk-r/ppa" do
   user "root"
 end
@@ -33,6 +37,34 @@ package "nodejs" do
   action :install
 end
 
+
+
+package "npm" do
+  def exist_command?(command)
+    begin
+      Open3.capture3("type #{command}")[2].exited?
+    rescue
+      false
+    end
+  end
+
+  action :install
+  not_if {exist_command?("npm")}
+end
+
+execute "update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10" do
+  def exist_command?(command)
+    begin
+      Open3.capture3("type #{command}")[2].exited?
+    rescue
+      false
+    end
+  end
+
+  not_if {exist_command?("node")}
+end
+
+
 execute "/usr/bin/npm install vsoagent-installer -g" do
   user "root"
 end
@@ -44,7 +76,7 @@ directory "/home/#{node["vsoagent"]["vm_user"]}/myagent" do
   action :create
 end
 
-execute "/usr/bin/vsoagent-installer" do
+execute "vsoagent-installer" do
   cwd "/home/#{node["vsoagent"]["vm_user"]}/myagent"
   user node["vsoagent"]["vm_user"]
   group node["vsoagent"]["vm_group"]
