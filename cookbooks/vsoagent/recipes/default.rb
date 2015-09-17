@@ -5,6 +5,10 @@ package "software-properties-common" do
   action :install
 end
 
+package "git" do
+  action :install
+end
+
 execute "add-apt-repository ppa:openjdk-r/ppa" do
   user "root"
 end
