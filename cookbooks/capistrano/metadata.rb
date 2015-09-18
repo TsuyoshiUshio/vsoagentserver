@@ -1,0 +1,7 @@
+name 'capistrano'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures capistrano'
+long_description 'Installs/Configures capistrano'
+version '0.1.0'

@@ -9,3 +9,4 @@
 nodes
 clients
 cookbooks/vsoagent/.kitchen
+cookbooks/.kitchen
