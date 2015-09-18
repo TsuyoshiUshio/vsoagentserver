@@ -79,6 +79,10 @@ execute "vsoagent-installer" do
   not_if {File.exist?("/home/#{node["vsoagent"]["vm_user"]}/myagent/agent")}
 end
 
+execute "/usr/bin/npm install azure-cli -g" do
+  user "root"
+end
+
 template "/home/#{node["vsoagent"]["vm_user"]}/.bash_profile" do
   mode '0664'
   source '.bash_profile.erb'
