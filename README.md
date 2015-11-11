@@ -45,7 +45,7 @@ kitchen version: 1.4.2
 ### 2. Install Chef Provisioning Azure
 
 ```
-> gem install chef-provisioning-azure
+> chef gem install chef-provisioning-azure
 ```
 
 Deploy and Provision
